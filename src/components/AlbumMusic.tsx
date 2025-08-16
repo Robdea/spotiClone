@@ -1,3 +1,5 @@
+import { useState } from "react";
+import PlayButton from "./PlayButton"
 
 interface AlbumMusicProps{
     img: string,
@@ -12,12 +14,22 @@ interface AlbumMusicProps{
 
 export default function AlbumMusic (props: AlbumMusicProps){
 
+    const [showPlayBttn, setShowPlayBttn] = useState(false);
+
     return (
         <div 
+        onMouseEnter={() => setShowPlayBttn(true)}
+        onMouseLeave={() => setShowPlayBttn(false)}
         onClick={props.onSelect}
         className="w-full flex justify-between">
             <div className="flex gap-2.5">
-                <span>{props.index + 1}</span>
+                {
+                    showPlayBttn ? (
+                        <PlayButton/>
+                    ): (
+                        <span>{props.index + 1}</span>
+                    )
+                }
                 <div className="flex">
                     <img className="size-10" src={props.img} alt="" />
                     <div>

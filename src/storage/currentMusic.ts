@@ -16,21 +16,30 @@ interface MusicState {
     musicData: MusicData | null;
     stringOfSongs: MusicData[];
     current: number;
+    isPaused: boolean;
     setSong: (songData: MusicData, album?:MusicData[]) => void;
     setStringSong: (stringSong: MusicData[]) => void;
     setNextSong: () => void;
     setPreviousSong: () => void;
+    setIsPaused: () => void;
 }
 
 export const useCurrentMusic = create<MusicState>((set) =>({
     musicData: null,
     stringOfSongs: [],
     current:0,
+    isPaused: false,
     setStringSong: (stringSong) =>{
         set((state) =>({ 
             stringOfSongs: stringSong,
-            musicData: stringSong[state.current]
+            musicData: stringSong[state.current],
+            isPaused: true
         }));
+    },
+    setIsPaused: () =>{
+        set((state) => ({
+            isPaused: !state.isPaused
+        }))
     },
     setSong: (songData, album) =>{
         set((state) => {
@@ -45,26 +54,28 @@ export const useCurrentMusic = create<MusicState>((set) =>({
                 return{
                     stringOfSongs: album,
                     musicData: songData,
-                    current: indexSong
+                    current: indexSong,
                 }
             }
         })
     },
     setNextSong: () =>{
         set((state) => {
-            const nextIndex = Math.min(state.current + 1, state.stringOfSongs.length - 1);
+            const nextIndex = (state.current + 1) % state.stringOfSongs.length;
             return {
-            current: nextIndex,
-            musicData: state.stringOfSongs[nextIndex],
+                current: nextIndex,
+                musicData: state.stringOfSongs[nextIndex],
+                isPaused: true, 
             };
         });  
     },
     setPreviousSong: ()=>{
         set((state) => {
-            const prevIndex = Math.max(state.current - 1, 0);
+            const prevIndex = (state.current -1 + state.stringOfSongs.length) % state.stringOfSongs.length
             return {
-            current: prevIndex,
-            musicData: state.stringOfSongs[prevIndex],
+                current: prevIndex,
+                musicData: state.stringOfSongs[prevIndex],
+                isPaused: true, 
             };
         });   
     }

@@ -1,7 +1,8 @@
 
 interface PlayButtonProps{
     isPlay?: boolean;
-    handlePlay: () => void;
+    handlePlay?: () => void;
+    className?: string
 }
 
 export default function PlayButton(props: PlayButtonProps) {
@@ -9,7 +10,7 @@ export default function PlayButton(props: PlayButtonProps) {
     return (
         <button 
         onClick={props.handlePlay}
-        className="bg-green-500 rounded-full p-2 flex items-center cursor-pointer text-black ">
+        className={`rounded-full p-2 flex items-center cursor-pointer text-black ${props.className}`}>
             { 
                 props.isPlay ? (
                     <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth="1.5" stroke="currentColor" className="size-8">

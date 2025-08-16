@@ -4,7 +4,6 @@ import { useState } from "react"
 import { searchAlbumById } from "../lib/data";
 import { useCurrentMusic } from "../storage/currentMusic";
 
-
 interface CardMusicProps{
     img: string,
     artists: string[],
@@ -15,11 +14,19 @@ interface CardMusicProps{
 function CardMusic(props: CardMusicProps) {
     const [showPlayBttn, setShowPlayBttn] = useState(false);
 
-    const {setStringSong} = useCurrentMusic()
+    const {setStringSong, musicData, isPaused, setIsPaused} = useCurrentMusic()
+    
     async function handlePlayAlbum() {
-        const res = await searchAlbumById(props.albumId);
-        setStringSong(res);
+        if(musicData === null || props.albumId !== musicData.albumId){
+            const res = await searchAlbumById(props.albumId);
+            setStringSong(res);
+        }else{
+            setIsPaused()        
+        }
     }
+
+    const isActive = musicData && musicData.albumId === props.albumId && isPaused;
+
 
     return (
       <div 
@@ -42,7 +49,9 @@ function CardMusic(props: CardMusicProps) {
         {showPlayBttn && (
             <div className="absolute top-28 right-5 z-20">
                 <PlayButton
+                className="bg-green"
                     handlePlay={handlePlayAlbum}
+                    isPlay={isActive || false}
                 />
             </div>
         )}

@@ -13,8 +13,6 @@ body{
   color: #ffffff;
 }
 
-
-
 #root{
   height: 100%;
   width: 100%;
@@ -47,4 +45,5 @@ body{
     --color-primary: #121212;
     --color-light-dark: #4f4f4f6e;
     --color-light-gray: #b3b3b3;
+    --color-green: #1ac356;
   }

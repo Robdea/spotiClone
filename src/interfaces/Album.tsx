@@ -9,18 +9,31 @@ function Album() {
         albumId: string;
     };
 
-    const {setSong} = useCurrentMusic()
+    const {setSong, stringOfSongs, current} = useCurrentMusic()
     const { albumId } = useParams<AlbumParams>();
     const [songs, setSongs] = useState<Song[]>([])
-
-
-    function handleSelectMusic(song: Song) {
-        setSong(song, songs)
-    }
+    
     useEffect(() => {
         const res = searchAlbumById(albumId!);
+        console.log("Busqueda: ", res);
         setSongs(res)
     },[albumId])
+    
+    function handleSelectMusic(song: Song) {
+        const isDifferentAlbum = stringOfSongs.length > 0 && stringOfSongs[0].albumId !== song.albumId;
+
+        if(isDifferentAlbum){
+            console.log("No son iguales");
+            console.log(current);
+            const res = searchAlbumById(albumId!);
+            setSongs(res)
+
+            setSong(song, songs)
+        }else{
+            setSong(song, songs)
+        }    
+    }
+
 
     return (
     <div className="p-6">

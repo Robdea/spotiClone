@@ -6,19 +6,18 @@ import PlayButton from "./PlayButton";
 
 export default function PlayBar(){
     const audioRef = useRef<HTMLAudioElement>(null)
-    const [isPlay, setIsPlay] = useState(false);
     const [currentTime, setCurrentTime] = useState(0);
     const [duration, setDuration] = useState(0)
-    const {musicData, setNextSong, setPreviousSong} = useCurrentMusic()
+    const {musicData, setNextSong, setPreviousSong, setIsPaused, isPaused } = useCurrentMusic()
     
     useEffect(() => {
-        console.log(audioRef.current?.volume);
-        if (isPlay) {
-            audioRef.current?.play();
+        if(!audioRef.current) return
+        if (isPaused) {
+            audioRef.current.play();
         } else {
-            audioRef.current?.pause();
+            audioRef.current.pause();
         }
-    }, [isPlay]);
+    }, [isPaused, musicData]);
 
     useEffect(() => {
         const audio = audioRef.current;
@@ -28,11 +27,9 @@ export default function PlayBar(){
         const updateTime = () => {
             setCurrentTime(audio.currentTime);
         };
-
         const updateDuration = () =>{
             setDuration(audio.duration);
         }
-
         audio.addEventListener("timeupdate", updateTime);
         audio.addEventListener("loadedmetadata", updateDuration);
         return () => {
@@ -41,6 +38,19 @@ export default function PlayBar(){
         };
     }, []);
 
+    useEffect(() => {
+        const audio = audioRef.current;
+        if(!audio) return;
+        const handleEnded = () => {
+            setNextSong();
+        }
+
+        audio.addEventListener("ended", handleEnded);
+        return() =>{
+            audio.removeEventListener("ended", handleEnded);
+        }
+    },[setNextSong]);
+
     const handleSeek = (value: number) => {
         console.log(duration);
         setCurrentTime(value);
@@ -48,11 +58,6 @@ export default function PlayBar(){
             audioRef.current.currentTime = value
         }
     }
-
-    function handlePlay() {
-        setIsPlay(prev => !prev);
-    }
-
 
     const [volume, setVolume] = useState(80)
     function handleVolumeChange(value: number) {
@@ -97,8 +102,9 @@ export default function PlayBar(){
                         </svg>
                     </button>
                     <PlayButton
-                        isPlay={isPlay}
-                        handlePlay={handlePlay}
+                        isPlay={isPaused}
+                        handlePlay={setIsPaused}
+                        className="bg-white"
                     />
                     <button
                     onClick={setNextSong}
@@ -128,8 +134,6 @@ export default function PlayBar(){
                     <span>
                         {musicData ? getAudioDurationInMinutes(duration) : "0:00"}
                     </span>
-                        
-
                 </div>
             </div>
             <div>
@@ -144,5 +148,4 @@ export default function PlayBar(){
             </div>
         </div>
     )
-        
 }
