@@ -15,13 +15,12 @@ function Album() {
 
 
     function handleSelectMusic(song: Song) {
-        setSong(song)
+        setSong(song, songs)
     }
     useEffect(() => {
         const res = searchAlbumById(albumId!);
         setSongs(res)
     },[albumId])
-
 
     return (
     <div className="p-6">

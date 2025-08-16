@@ -2,13 +2,14 @@ import { useEffect, useRef, useState } from "react";
 import { getAudioDurationInMinutes } from "../utils/audioUtils";
 import { useCurrentMusic } from "../storage/currentMusic";
 import RangeComponent from "./RangeComponent";
+import PlayButton from "./PlayButton";
 
 export default function PlayBar(){
     const audioRef = useRef<HTMLAudioElement>(null)
     const [isPlay, setIsPlay] = useState(false);
     const [currentTime, setCurrentTime] = useState(0);
     const [duration, setDuration] = useState(0)
-    const {musicData} = useCurrentMusic()
+    const {musicData, setNextSong, setPreviousSong} = useCurrentMusic()
     
     useEffect(() => {
         console.log(audioRef.current?.volume);
@@ -76,13 +77,45 @@ export default function PlayBar(){
             <div className="flex flex-col">
                 <audio 
                 ref={audioRef}
+                
                 src={musicData?.music}></audio>
-                <button
-                onClick={handlePlay}
-                className="p-5 bg-amber-200"
-                >
-                    play
-                </button>
+
+                <div className="flex flex-row justify-center items-center">
+                    <button
+                    onClick={setPreviousSong}
+                    >
+                        <svg  xmlns="http://www.w3.org/2000/svg"  
+                        width="24"  
+                        height="24"  
+                        viewBox="0 0 24 24"  
+                        fill="none"  
+                        stroke="currentColor"  
+                        strokeWidth="2"  
+                        strokeLinecap="round"  strokeLinejoin="round">
+                            <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
+                            <path d="M14 6l-6 6l6 6v-12" />
+                        </svg>
+                    </button>
+                    <PlayButton
+                        isPlay={isPlay}
+                        handlePlay={handlePlay}
+                    />
+                    <button
+                    onClick={setNextSong}
+                    >
+                        <svg  
+                        xmlns="http://www.w3.org/2000/svg"  
+                        width="24"  height="24"  viewBox="0 0 24 24"  
+                        fill="none"  stroke="currentColor"  
+                        strokeWidth="2"  
+                        strokeLinecap="round"  
+                        strokeLinejoin="round"  
+                        >
+                            <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
+                            <path d="M10 18l6 -6l-6 -6v12" />
+                        </svg>
+                    </button>
+                </div>
                 <div className="flex gap-2.5">
                     {getAudioDurationInMinutes(currentTime)}
                     <RangeComponent
