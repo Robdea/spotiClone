@@ -14,19 +14,17 @@ interface CardMusicProps{
 function CardMusic(props: CardMusicProps) {
     const [showPlayBttn, setShowPlayBttn] = useState(false);
 
-    const {setStringSong, musicData, isPaused, setIsPaused} = useCurrentMusic()
+    const {setStringSong, musicData, isAlbumActive, setIsPaused, setRestart} = useCurrentMusic()
     
     async function handlePlayAlbum() {
         if(musicData === null || props.albumId !== musicData.albumId){
+            setRestart()
             const res = await searchAlbumById(props.albumId);
             setStringSong(res);
         }else{
             setIsPaused()        
         }
     }
-
-    const isActive = musicData && musicData.albumId === props.albumId && isPaused;
-
 
     return (
       <div 
@@ -51,7 +49,7 @@ function CardMusic(props: CardMusicProps) {
                 <PlayButton
                 className="bg-green"
                     handlePlay={handlePlayAlbum}
-                    isPlay={isActive || false}
+                    isPlay={isAlbumActive(props.albumId)}
                 />
             </div>
         )}

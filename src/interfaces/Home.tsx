@@ -4,7 +4,7 @@ import { playlist} from "../lib/data"
 export default function Home() {
         
     return(
-        <div className="flex gap-2 p-3">
+        <div className="flex gap-2 p-3 flex-wrap">
             {playlist.map((play) => (
                 <CardMusic
                     artists={play.artists}

@@ -70,13 +70,13 @@ export default function RangeComponent(props: RangeProps) {
     onMouseDown={handleMouseDown}
     onTouchStart={handleTouchStart}
     ref={sliderRef}
-    className="w-2xs h-1.5 bg-amber-50 rounded-3xl cursor-pointer relative">
+    className="w-full h-1 bg-light-gray-200 rounded-3xl cursor-pointer relative">
         <div 
         style={{width: `${percent}%`}}
-        className="absolute h-full"></div> 
+        className="absolute h-full bg-white rounded-3xl"></div> 
         <div 
         style={{left:`${percent}%`, transform: "translate(-50%, -50%)"}}
-        className="absolute size-4 rounded-full bg-amber-400 cursor-pointer top-1/2"></div> 
+        className="absolute size-3 rounded-full bg-white cursor-pointer top-1/2"></div> 
     </div>
   )
 }

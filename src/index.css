@@ -45,5 +45,9 @@ body{
     --color-primary: #121212;
     --color-light-dark: #4f4f4f6e;
     --color-light-gray: #b3b3b3;
+    --color-light-gray-200: #4d4d4d;
     --color-green: #1ac356;
+    --color-light-green: #36d36e;
+    --color-transparent-dark: #00000061;
+    --text-tiny: 0.9em;
   }

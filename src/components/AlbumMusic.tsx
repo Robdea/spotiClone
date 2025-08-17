@@ -25,7 +25,8 @@ export default function AlbumMusic (props: AlbumMusicProps){
             <div className="flex gap-2.5">
                 {
                     showPlayBttn ? (
-                        <PlayButton/>
+                        <PlayButton                            
+                        />
                     ): (
                         <span>{props.index + 1}</span>
                     )

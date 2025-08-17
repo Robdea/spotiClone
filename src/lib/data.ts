@@ -35,7 +35,7 @@ export const playlist: Playlist[] = [
         cover: "../../public/cover/pixel-art-7280249_1280.png",
         artists: ["Ezrs2"],
         title: "Lo-fi Music",
-        color: colors.blue
+        color: colors.yellow
     },
     {
         id: '3',
@@ -43,7 +43,7 @@ export const playlist: Playlist[] = [
         cover: "../../public/cover/nostalgic.jpeg",
         artists: ["Ezrs2"],
         title: "Lo-fi Music",
-        color: colors.blue
+        color: colors.gray
     },
     {
         id: '4',
@@ -51,12 +51,17 @@ export const playlist: Playlist[] = [
         cover: "../../public/cover/astronaut-2026960_1280.png",
         artists: ["Ezrs2"],
         title: "Lo-fi Music",
-        color: colors.blue
+        color: colors.orange
     },
 ]
 
 export function searchAlbumById(id: string):Song[] {
     return songs.filter((s) => s.albumId === id)
+}
+
+
+export function getAutorById(id: string): Playlist | undefined {
+    return playlist.find((p) => p.albumId === id)
 }
 
 export const songs: Song[]= [

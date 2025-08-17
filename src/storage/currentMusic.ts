@@ -1,6 +1,5 @@
 import { create } from "zustand";
 
-
 type MusicData = {
     albumId: string,
     album: string,
@@ -22,9 +21,11 @@ interface MusicState {
     setNextSong: () => void;
     setPreviousSong: () => void;
     setIsPaused: () => void;
+    setRestart: ()=> void;
+    isAlbumActive: (albumId: string) => boolean;
 }
 
-export const useCurrentMusic = create<MusicState>((set) =>({
+export const useCurrentMusic = create<MusicState>((set, get) =>({
     musicData: null,
     stringOfSongs: [],
     current:0,
@@ -41,21 +42,23 @@ export const useCurrentMusic = create<MusicState>((set) =>({
             isPaused: !state.isPaused
         }))
     },
+    setRestart: () =>{
+        set({current: 0})
+    },
     setSong: (songData, album) =>{
         set((state) => {
-            if(state.stringOfSongs.length > 0){
+            if(state.stringOfSongs.length > 0 && state.musicData?.albumId === songData.albumId){
                 const indexSong = state.stringOfSongs.findIndex((s) => s.id === songData.id);
                 return {
                     musicData: state.stringOfSongs[indexSong],
                     current: indexSong
                 } 
-            }else{
-                const indexSong = album?.findIndex((s) => s.id === songData.id);
-                return{
-                    stringOfSongs: album,
-                    musicData: songData,
-                    current: indexSong,
-                }
+            }
+            const indexSong = album?.findIndex((s) => s.id === songData.id) ?? 0;
+            return{
+                stringOfSongs: album ?? [],
+                musicData: songData,
+                current: indexSong,
             }
         })
     },
@@ -78,5 +81,9 @@ export const useCurrentMusic = create<MusicState>((set) =>({
                 isPaused: true, 
             };
         });   
+    },
+    isAlbumActive: (albumId) =>{
+        const {musicData, isPaused} = get();
+        return musicData !== null && musicData.albumId === albumId && isPaused
     }
 }))
