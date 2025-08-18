@@ -16,6 +16,8 @@ interface MusicState {
     stringOfSongs: MusicData[];
     current: number;
     isPaused: boolean;
+    currentColor: string;
+    setColor: (color: string) => void;
     setSong: (songData: MusicData, album?:MusicData[]) => void;
     setStringSong: (stringSong: MusicData[]) => void;
     setNextSong: () => void;
@@ -23,13 +25,18 @@ interface MusicState {
     setIsPaused: () => void;
     setRestart: ()=> void;
     isAlbumActive: (albumId: string) => boolean;
+    currentSong: (id: string) => boolean;
 }
 
 export const useCurrentMusic = create<MusicState>((set, get) =>({
     musicData: null,
     stringOfSongs: [],
     current:0,
+    currentColor: "#121212",
     isPaused: false,
+    setColor:(color) =>{
+        set({currentColor:color })
+    },
     setStringSong: (stringSong) =>{
         set((state) =>({ 
             stringOfSongs: stringSong,
@@ -85,5 +92,10 @@ export const useCurrentMusic = create<MusicState>((set, get) =>({
     isAlbumActive: (albumId) =>{
         const {musicData, isPaused} = get();
         return musicData !== null && musicData.albumId === albumId && isPaused
+    },
+    currentSong: (id) =>{
+        const {musicData} = get();
+
+        return musicData !== null && musicData.id === id 
     }
 }))

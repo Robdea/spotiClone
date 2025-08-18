@@ -3,6 +3,13 @@ import { getAudioDurationInMinutes } from "../utils/audioUtils";
 import { useCurrentMusic } from "../storage/currentMusic";
 import RangeComponent from "./RangeComponent";
 import PlayButton from "./PlayButton";
+import Previous from "./Previous";
+import Next from "./Next";
+import HomeIcon from "./HomeIcon";
+import BooksIcon from "./BooksIcon";
+import { useIsMobile } from "../hooks/useIsMobile";
+import PlayControlForMobile from "./PlayControlForMobile";
+import { Link } from "react-router";
 
 export default function PlayBar(){
     const audioRef = useRef<HTMLAudioElement>(null)
@@ -67,90 +74,96 @@ export default function PlayBar(){
         }
     }
 
+    const isMobile = useIsMobile()
+
     return(
-        <aside className="music-play flex justify-center">
-            <div className="flex justify-between items-center w-full">
-                <div className="flex items-center gap-3 flex-1 text-tiny">
-                    <img className="size-17 rounded-xl" src={musicData?.img} alt="" />
-                    <div>
-                        <p><strong>{musicData?.title}</strong></p>
-                        <>
-                        {musicData?.artists.map((a) => (
-                            <p className="text-light-gray" key={a}>{a}</p>
-                        ))}</>
-                    </div>
-                </div>
-
-                <div className="flex flex-col flex-4 items-center gap-1.5">
-                    <audio 
-                    ref={audioRef}
-                    
-                    src={musicData?.music}></audio>
-
-                    <div className="flex flex-row justify-center items-center">
-                        <button
-                        onClick={setPreviousSong}
-                        >
-                            <svg  xmlns="http://www.w3.org/2000/svg"  
-                            width="24"  
-                            height="24"  
-                            viewBox="0 0 24 24"  
-                            fill="none"  
-                            stroke="currentColor"  
-                            strokeWidth="2"  
-                            strokeLinecap="round"  strokeLinejoin="round">
-                                <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
-                                <path d="M14 6l-6 6l6 6v-12" />
-                            </svg>
-                        </button>
-                        <PlayButton
-                            isPlay={isPaused}
-                            handlePlay={setIsPaused}
-                            className="bg-white"
+        <aside className="music-play z-90 bg-black md:pt-2.5 md:pb-0 pb-30">
+              <audio ref={audioRef} src={musicData?.music}></audio>
+            {
+                isMobile ? 
+                (
+                    <div className="px-3">
+                        <PlayControlForMobile 
+                        title={musicData?.title ?? ""}
+                        artists={musicData?.artists ?? [""]} 
+                        cover={musicData?.img ?? ""}
                         />
-                        <button
-                        onClick={setNextSong}
-                        >
-                            <svg  
-                            xmlns="http://www.w3.org/2000/svg"  
-                            width="24"  height="24"  viewBox="0 0 24 24"  
-                            fill="none"  stroke="currentColor"  
-                            strokeWidth="2"  
-                            strokeLinecap="round"  
-                            strokeLinejoin="round"  
+
+                        <div className="pt-3 h-2/3 w-full flex justify-center gap-30  bg-black ">
+                            <div className="flex items-center flex-col">
+                                <Link to={"/"}>
+                                    <HomeIcon/>
+                                    <span className="text-small">Inicio</span>
+                                </Link>
+                            </div>
+                            <div className="flex items-center flex-col">
+                                <BooksIcon/>
+                                <span className="text-small">Tu biblioteca</span>
+                            </div>
+                        </div>
+                    </div>
+                )
+                : 
+                (
+                <div className="flex justify-between items-center w-full">
+
+                    <div className="flex items-center gap-3 flex-1 text-tiny">
+                        <img className="size-17 rounded-xl" src={musicData?.img} alt="" />
+                        <div>
+                            <p><strong>{musicData?.title}</strong></p>
+                            <>
+                            {musicData?.artists.map((a) => (
+                                <p className="text-light-gray" key={a}>{a}</p>
+                            ))}</>
+                        </div>
+                    </div>
+
+                    <div className="flex flex-col flex-4 items-center gap-1.5">
+                        <div className="flex flex-row gap-4 justify-center items-center">
+                            <button
+                            onClick={setPreviousSong}
                             >
-                                <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
-                                <path d="M10 18l6 -6l-6 -6v12" />
-                            </svg>
-                        </button>
+                                <Previous/>
+                            </button>
+                            <PlayButton
+                                isPlay={isPaused}
+                                handlePlay={setIsPaused}
+                                className="bg-white"
+                            />
+                            <button
+                            onClick={setNextSong}
+                            >
+                                <Next/>
+                            </button>
+                        </div>
+                        <div className="flex gap-2.5 w-2/3 items-center text-tiny">
+                            <span>
+                                {getAudioDurationInMinutes(currentTime)}
+                            </span>
+                            <RangeComponent
+                                limit={duration}
+                                start={0}
+                                step={0.1}
+                                value={currentTime}
+                                onChange={handleSeek}
+                            />
+                            <span>
+                                {musicData ? getAudioDurationInMinutes(duration) : "0:00"}
+                            </span>
+                        </div>
                     </div>
-                    <div className="flex gap-2.5 w-2/3 items-center text-tiny">
-                        <span>
-                            {getAudioDurationInMinutes(currentTime)}
-                        </span>
+                    <div className="w-1/12 flex ">
                         <RangeComponent
-                            limit={duration}
+                            limit={100}
                             start={0}
-                            step={0.1}
-                            value={currentTime}
-                            onChange={handleSeek}
+                            value={volume}
+                            step={1}
+                            onChange={handleVolumeChange}
                         />
-                        <span>
-                            {musicData ? getAudioDurationInMinutes(duration) : "0:00"}
-                        </span>
                     </div>
                 </div>
-
-                <div className="w-1/12 flex ">
-                    <RangeComponent
-                        limit={100}
-                        start={0}
-                        value={volume}
-                        step={1}
-                        onChange={handleVolumeChange}
-                    />
-                </div>
-            </div>
+                )
+            }
         </aside>
     )
 }

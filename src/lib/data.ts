@@ -33,24 +33,24 @@ export const playlist: Playlist[] = [
         id: '2',
         albumId: "8-bits",
         cover: "../../public/cover/pixel-art-7280249_1280.png",
-        artists: ["Ezrs2"],
-        title: "Lo-fi Music",
+        artists: ["PixelEcho"],
+        title: "8-bits",
         color: colors.yellow
     },
     {
         id: '3',
         albumId: "nostalgic",
         cover: "../../public/cover/nostalgic.jpeg",
-        artists: ["Ezrs2"],
-        title: "Lo-fi Music",
+        artists: ["PixelEcho"],
+        title: "Nostalgic",
         color: colors.gray
     },
     {
         id: '4',
         albumId: "retro",
         cover: "../../public/cover/astronaut-2026960_1280.png",
-        artists: ["Ezrs2"],
-        title: "Lo-fi Music",
+        artists: ["RetroFlow"],
+        title: "Retro",
         color: colors.orange
     },
 ]
@@ -168,51 +168,51 @@ export const songs: Song[]= [
     {
         id: '302',
         albumId: "8-bits",
-        album: "...",
-        artists: ["NarvA"],
-        duration: "4:00",
+        album: "8-bits",
+        artists: ["PixelEcho"],
+        duration: "1:25",
         img: "../../public/cover/pixel-art-7280249_1280.png",
-        title: "Rainy City Lights",
+        title: "Retro Quest",
         music: "../../public/music/8-bits/8-bit-hero-251426.mp3"
     },
     {
         id: '305',
         albumId: "8-bits",
-        album: "...",
-        artists: ["NarvA"],
-        duration: "4:00",
+        album: "8-bits",
+        artists: ["BitCrush"],
+        duration: "5:53",
         img: "../../public/cover/pixel-art-7280249_1280.png",
-        title: "Rainy City Lights",
+        title: "Neon Odyssey",
         music: "../../public/music/8-bits/8-bit-hip-hop-rapbeatzchiptunevideogamepodcast-153463.mp3"
     },
     {
         id: '312',
         albumId: "8-bits",
-        album: "...",
-        artists: ["NarvA"],
-        duration: "4:00",
+        album: "8-bits",
+        artists: ["SynthWaveX"],
+        duration: "1:01",
         img: "../../public/cover/pixel-art-7280249_1280.png",
-        title: "Rainy City Lights",
+        title: "Pixel Runner",
         music: "../../public/music/8-bits/8bit-video-game-music-289970.mp3"
     },
     {
         id: '339',
         albumId: "8-bits",
-        album: "...",
-        artists: ["NarvA"],
-        duration: "4:00",
+        album: "8-bits",
+        artists: ["Neon Ghosts"],
+        duration: "1:12",
         img: "../../public/cover/pixel-art-7280249_1280.png",
-        title: "Rainy City Lights",
+        title: "Arcade Dreams",
         music: "../../public/music/8-bits/a-night-full-of-stars-peaceful-electronic-8-bitpiano-track-321551.mp3"
     },
     {
         id: '399',
         albumId: "8-bits",
-        album: "...",
-        artists: ["NarvA"],
-        duration: "4:00",
+        album: "8-bits",
+        artists: ["RetroFlow"],
+        duration: "1:22",
         img: "../../public/cover/pixel-art-7280249_1280.png",
-        title: "Rainy City Lights",
+        title: "Glitched Reality",
         music: "../../public/music/8-bits/falselyclaimed-bit-beats-3-168873.mp3"
     },
     {
@@ -220,7 +220,7 @@ export const songs: Song[]= [
         albumId: "nostalgic",
         album: "...",
         artists: ["NarvA"],
-        duration: "4:00",
+        duration: "2:43",
         img: "../../public/cover/nostalgic.jpeg",
         title: "Rainy City Lights",
         music: "../../public/music/nostalgic/240508-piano-retro-fairytail-239358.mp3"
@@ -230,7 +230,7 @@ export const songs: Song[]= [
         albumId: "nostalgic",
         album: "...",
         artists: ["NarvA"],
-        duration: "4:00",
+        duration: "2:17",
         img: "../../public/cover/nostalgic.jpeg",
         title: "Rainy City Lights",
         music: "../../public/music/nostalgic/a-piano-to-the-moon-143520.mp3"
@@ -240,7 +240,7 @@ export const songs: Song[]= [
         albumId: "nostalgic",
         album: "...",
         artists: ["NarvA"],
-        duration: "4:00",
+        duration: "2:24",
         img: "../../public/cover/nostalgic.jpeg",
         title: "Rainy City Lights",
         music: "../../public/music/nostalgic/nostalgic-melancholy-soundscape-364786.mp3"
@@ -250,7 +250,7 @@ export const songs: Song[]= [
         albumId: "nostalgic",
         album: "...",
         artists: ["NarvA"],
-        duration: "4:00",
+        duration: "2:10",
         img: "../../public/cover/nostalgic.jpeg",
         title: "Rainy City Lights",
         music: "../../public/music/nostalgic/sentimental-piano-piece-380809.mp3"
@@ -260,7 +260,7 @@ export const songs: Song[]= [
         albumId: "nostalgic",
         album: "...",
         artists: ["NarvA"],
-        duration: "4:00",
+        duration: "2:14",
         img: "../../public/cover/nostalgic.jpeg",
         title: "Rainy City Lights",
         music: "../../public/music/nostalgic/spring-lofi-vibes-lofi-music-340019.mp3"
@@ -270,7 +270,7 @@ export const songs: Song[]= [
         albumId: "retro",
         album: "...",
         artists: ["NarvA"],
-        duration: "4:00",
+        duration: "2:48",
         img: "../../public/cover/astronaut-2026960_1280.png",
         title: "Rainy City Lights",
         music: "../../public/music/retro/80s-retro-synthwave-186631.mp3"
@@ -280,7 +280,7 @@ export const songs: Song[]= [
         albumId: "retro",
         album: "...",
         artists: ["NarvA"],
-        duration: "4:00",
+        duration: "3:51",
         img: "../../public/cover/astronaut-2026960_1280.png",
         title: "Rainy City Lights",
         music: "../../public/music/retro/cool-retro-darkwavesynthwave-type-beat-shadows-211527.mp3"
@@ -290,7 +290,7 @@ export const songs: Song[]= [
         albumId: "retro",
         album: "...",
         artists: ["NarvA"],
-        duration: "4:00",
+        duration: "2:55",
         img: "../../public/cover/astronaut-2026960_1280.png",
         title: "Rainy City Lights",
         music: "../../public/music/retro/retro-beat-284125.mp3"
@@ -310,7 +310,7 @@ export const songs: Song[]= [
         albumId: "retro",
         album: "...",
         artists: ["NarvA"],
-        duration: "4:00",
+        duration: "2:30",
         img: "../../public/cover/astronaut-2026960_1280.png",
         title: "Rainy City Lights",
         music: "../../public/music/retro/retro-pop-experiment-146709.mp3"

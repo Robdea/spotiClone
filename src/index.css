@@ -30,6 +30,11 @@ body{
 
 .playlist{
   grid-area: playlist;
+  position: fixed;
+  width: 200px;
+  height: 100%;
+  top: 10px;          /* Se queda pegado arriba */
+  align-self: start; /* Asegura que se alinee al inicio */
 }
 
 .content{
@@ -38,16 +43,34 @@ body{
 
 .music-play{
   grid-area: music-play;
+  position: sticky;
+  bottom: 0;  
+  top: 0;     
+  height: 100px;   /* El tamaño definido en tu grid */
 }
 
 
 @theme{
-    --color-primary: #121212;
-    --color-light-dark: #4f4f4f6e;
-    --color-light-gray: #b3b3b3;
-    --color-light-gray-200: #4d4d4d;
-    --color-green: #1ac356;
-    --color-light-green: #36d36e;
-    --color-transparent-dark: #00000061;
-    --text-tiny: 0.9em;
+  --color-primary: #121212;
+  --color-light-dark: #4f4f4f6e;
+  --color-light-gray: #b3b3b3;
+  --color-light-gray-200: #4d4d4d;
+  --color-green: #1ac356;
+  --color-light-green: #36d36e;
+  --color-transparent-dark: #00000061;
+  --text-tiny: 0.9em;
+  --text-small: 0.7em;
+}
+
+@media (max-width: 768px) {
+  .main-layout {
+    grid-template-areas: 
+    "content" 
+    "music-play" 
+    ; 
+    grid-template-columns: 1fr; 
+    grid-template-rows: 1fr 100px; 
   }
+  .playlist{
+  }
+}

@@ -47,7 +47,8 @@ export default function MiniCardAlbum(props: MiniCardAlbumProps) {
 
             <div>
                 <Link to={`album/${props.albumId}`}>
-                    <h3>{props.title}</h3>
+                    <h3 className={`font-medium ${isAlbumActive(props.albumId) && 'text-green'}`}>{props.title}</h3>
+                    <p className="text-tiny text-light-gray font-medium">{props.artists.join(", ")}</p>
                 </Link>
             </div>
         </div>
