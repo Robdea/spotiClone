@@ -6,7 +6,6 @@ import PlayButton from "./PlayButton";
 import Previous from "./Previous";
 import Next from "./Next";
 import HomeIcon from "./HomeIcon";
-import BooksIcon from "./BooksIcon";
 import { useIsMobile } from "../hooks/useIsMobile";
 import PlayControlForMobile from "./PlayControlForMobile";
 import { Link } from "react-router";
@@ -108,10 +107,6 @@ export default function PlayBar(){
                                     <HomeIcon/>
                                     <span className="text-small text-light-gray">Inicio</span>
                                 </Link>
-                            </div>
-                            <div className="flex items-center flex-col">
-                                <BooksIcon/>
-                                <span className="text-small text-light-gray">Tu biblioteca</span>
                             </div>
                         </div>
                     </div>
