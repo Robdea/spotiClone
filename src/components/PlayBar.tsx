@@ -82,10 +82,10 @@ export default function PlayBar(){
             {
                 isMobile ? 
                 (
-                    <div className="grid grid-rows-2 px-2 bg-black">
-                        <div className="flex-1">
+                    <div className="grid grid-rows-2">
+                        <div className="h-full">
                             { musicData &&
-                                <>
+                                <div className="bg-black h-full px-2">
                                     <PlayControlForMobile 
                                     />
                                     <div className="px-1">
@@ -98,7 +98,7 @@ export default function PlayBar(){
                                             hiddenDot={true}
                                         />
                                     </div>
-                                </>
+                                </div>
                             }
                         </div>
 

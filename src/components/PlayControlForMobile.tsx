@@ -7,7 +7,7 @@ export default function PlayControlForMobile() {
     return (
         <div
         style={{backgroundColor: currentAutor?.color.accent}}
-        className={`flex justify-between px-3 pt-1 rounded-xl cursor-pointer`}>
+        className={`flex justify-between px-3 pt-1 rounded-xl cursor-pointer h-full`}>
             <div 
             onClick={setShowPlayControl} 
             className='flex gap-2.5 w-full'>
