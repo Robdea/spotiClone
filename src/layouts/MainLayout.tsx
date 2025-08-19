@@ -5,9 +5,25 @@ import MiniCardAlbum from "../components/MiniCardAlbum";
 import { useIsMobile } from "../hooks/useIsMobile";
 import { useCurrentMusic } from "../storage/currentMusic";
 import SongControllers from "../components/SongControllers";
+import { useEffect } from "react";
 
 export default function MainLayout() {
     const isMobile = useIsMobile()
+    const {setIsPaused} = useCurrentMusic()
+
+    const handleKeyDown = (event: KeyboardEvent) => {
+        if (event.code === "Space" || event.key === " ") {
+            event.preventDefault(); // evita el scroll automático de la página
+            setIsPaused();
+        }
+    };
+
+    useEffect(() => {
+        window.addEventListener("keydown", handleKeyDown);
+        return () => {
+            window.removeEventListener("keydown", handleKeyDown);
+        };
+    }, []);
 
     const {showPlayControl} = useCurrentMusic()
 
