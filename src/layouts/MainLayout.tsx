@@ -3,12 +3,20 @@ import PlayBar from "../components/PlayBar";
 import { playlist } from "../lib/data";
 import MiniCardAlbum from "../components/MiniCardAlbum";
 import { useIsMobile } from "../hooks/useIsMobile";
+import { useCurrentMusic } from "../storage/currentMusic";
+import SongControllers from "../components/SongControllers";
 
 export default function MainLayout() {
     const isMobile = useIsMobile()
 
+    const {showPlayControl} = useCurrentMusic()
+
     return(
         <div className="main-layout w-full h-full md:p-2 flex">
+            {
+                showPlayControl && <SongControllers/>
+            }
+            
             {
                 !isMobile &&
                 <div className="playlist bg-primary rounded-2xl p-2 overflow-clip">    

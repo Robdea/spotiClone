@@ -1,4 +1,5 @@
 import { create } from "zustand";
+import { colors } from "../lib/colors";
 
 type MusicData = {
     albumId: string,
@@ -11,13 +12,19 @@ type MusicData = {
     id: string
 }
 
+type Autor = {
+    title: string;
+    color: (typeof colors)[keyof typeof colors];
+}
+
 interface MusicState {
     musicData: MusicData | null;
     stringOfSongs: MusicData[];
     current: number;
     isPaused: boolean;
-    currentColor: string;
-    setColor: (color: string) => void;
+    currentAutor: Autor | null;
+    showPlayControl: boolean;
+    setShowPlayControl: ( )=> void;
     setSong: (songData: MusicData, album?:MusicData[]) => void;
     setStringSong: (stringSong: MusicData[]) => void;
     setNextSong: () => void;
@@ -26,16 +33,40 @@ interface MusicState {
     setRestart: ()=> void;
     isAlbumActive: (albumId: string) => boolean;
     currentSong: (id: string) => boolean;
+    setCurrentAutor: (autor: Autor) => void,
+    setCurrentTime: (time: number)=> void;
+    currentTime: number;
+    duration: number;
+    handleSeek: (value: number) => void;
+    setDuration: (d: number) => void;
 }
 
 export const useCurrentMusic = create<MusicState>((set, get) =>({
     musicData: null,
     stringOfSongs: [],
+    duration: 0,
     current:0,
-    currentColor: "#121212",
     isPaused: false,
-    setColor:(color) =>{
-        set({currentColor:color })
+    currentAutor: null,
+    showPlayControl: false,
+    currentTime: 0,
+    setCurrentTime: (time) =>{
+        set({currentTime: time})
+    },
+    handleSeek: (value: number) => {
+        const audio = document.querySelector("audio") as HTMLAudioElement | null
+        if (!audio) return
+        audio.currentTime = value
+        set({ currentTime: value })
+    },
+    setDuration: (d) =>{
+        set({duration: d})
+    },
+    setCurrentAutor: (autor: Autor) => {
+      set({ currentAutor: autor })
+    },
+    setShowPlayControl: ()=>{
+        set((state) =>({showPlayControl: !state.showPlayControl}))
     },
     setStringSong: (stringSong) =>{
         set((state) =>({ 

@@ -1,29 +1,26 @@
 import { useCurrentMusic } from '../storage/currentMusic';
 import PlayButton from './PlayButton'
 
-interface PlayControlForMobileProps{
-    cover: string;
-    title: string;
-    artists: string[];
-}
-
-export default function PlayControlForMobile(props: PlayControlForMobileProps) {
-    const {isPaused, currentColor,setIsPaused} = useCurrentMusic()
+export default function PlayControlForMobile() {
+    const {isPaused, currentAutor,setIsPaused, musicData, setShowPlayControl} = useCurrentMusic()
 
     return (
-        <div 
-        style={{backgroundColor: currentColor}}
-        className={`flex justify-between px-3 pt-1 rounded-xl`}>
-            <div className='flex gap-2.5'>
+        <div
+        style={{backgroundColor: currentAutor?.color.accent}}
+        className={`flex justify-between px-3 pt-1 rounded-xl cursor-pointer`}>
+            <div 
+            onClick={setShowPlayControl} 
+            className='flex gap-2.5 w-full'>
                 <div>
-                    <img className='size-10 rounded-xs' src={props.cover} alt="" />
+                    <img className='size-10 rounded-xs' src={musicData?.img} alt="" />
                 </div>
                 
                 <div>
-                    <h2 className='text-tiny font-medium'>{props.title}</h2>
-                    <span className='text-tiny'>{props.artists.join(", ")}</span>
+                    <h2 className='text-tiny font-medium'>{musicData?.title}</h2>
+                    <span className='text-tiny'>{musicData?.artists.join(", ")}</span>
                 </div>
             </div>
+
             <PlayButton
             className='p-0 text-white'
             handlePlay={setIsPaused}

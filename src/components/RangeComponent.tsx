@@ -5,7 +5,8 @@ export interface RangeProps{
     start: number,
     value: number,
     step: number,
-    onChange?: (value: number) => void
+    onChange?: (value: number) => void,
+    hiddenDot?: boolean 
 }
 
 export default function RangeComponent(props: RangeProps) {
@@ -74,9 +75,12 @@ export default function RangeComponent(props: RangeProps) {
         <div 
         style={{width: `${percent}%`}}
         className="absolute h-full bg-white rounded-3xl"></div> 
-        <div 
-        style={{left:`${percent}%`, transform: "translate(-50%, -50%)"}}
-        className="absolute size-3 rounded-full bg-white cursor-pointer top-1/2"></div> 
+        
+        { !props.hiddenDot &&
+            <div 
+            style={{left:`${percent}%`, transform: "translate(-50%, -50%)"}}
+            className="absolute size-3 rounded-full bg-white cursor-pointer top-1/2"></div> 
+        }
     </div>
   )
 }

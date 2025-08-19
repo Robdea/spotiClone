@@ -11,7 +11,7 @@ function Album() {
         albumId: string;
     };
 
-    const {setSong, isAlbumActive, setIsPaused, musicData, setStringSong, setRestart, isPaused, setColor} = useCurrentMusic()
+    const {setSong, isAlbumActive, setIsPaused, setCurrentAutor, musicData, setStringSong, setRestart, isPaused} = useCurrentMusic()
     const { albumId } = useParams<AlbumParams>();
     const [songs, setSongs] = useState<Song[]>([])
     const [autor, setAutor] = useState<Playlist>();
@@ -26,17 +26,27 @@ function Album() {
     },[albumId])
 
     function handleSelectMusic(song: Song) {
-        if(!isPaused) setIsPaused()
-        setColor(autor?.color.accent ?? "")
+        if(!isPaused) setIsPaused();
+
+        if (autor) {
+            setCurrentAutor({
+                title: autor.title,
+                color: autor.color
+            });
+        }
 
         setSong(song, songs)
     }
 
-    console.log("mobil", isMobile);
-
     async function handlePlayAlbum() {
         if (!albumId) return;
-        setColor(autor?.color.accent ?? "")
+        
+        if (autor) {
+            setCurrentAutor({
+                title: autor.title,
+                color: autor.color
+            });
+        }
         if(musicData === null || albumId !== musicData.albumId){
             setRestart()
             const res = await searchAlbumById(albumId);

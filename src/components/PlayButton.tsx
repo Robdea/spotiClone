@@ -2,7 +2,8 @@
 interface PlayButtonProps{
     isPlay?: boolean;
     handlePlay?: () => void;
-    className?: string
+    className?: string;
+    disabled?: boolean
 }
 
 export default function PlayButton(props: PlayButtonProps) {
@@ -10,6 +11,7 @@ export default function PlayButton(props: PlayButtonProps) {
     return (
         <button 
         onClick={props.handlePlay}
+        disabled={props.disabled}
         className={`rounded-full p-2 flex items-center cursor-pointer text-black ${props.className}`}>
             { 
                 props.isPlay ? (
