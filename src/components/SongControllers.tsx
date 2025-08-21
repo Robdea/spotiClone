@@ -71,7 +71,7 @@ export default function SongControllers() {
             <PlayButton
                 handlePlay={setIsPaused}
                 isPlay={isPaused}
-                className='text-black bg-white'
+                className='text-black bg-white size-18 justify-center'
             />
             <button onClick={setNextSong}>
                 <Next/>
